@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+</head>
+
+<body>
+    <h2>Checkout with PayFast</h2>
+
+    <form action="https://sandbox.payfast.co.za/eng/process" method="POST">
+        <!-- Merchant Details -->
+        <input type="hidden" name="merchant_id" value="10029209">
+        <input type="hidden" name="merchant_key" value="p3xpnmm6g7r37">
+
+        <!-- Transaction Details -->
+        <input name="amount" id="amount" value="">
+        <input type="hidden" name="item_name" id="item_name" value="Wardrobe Fashion Purchase">
+        
+        <!-- URLs -->
+        <input type="hidden" name="return_url" value="https://yourwebsite.com/success.html">
+        <input type="hidden" name="cancel_url" value="https://yourwebsite.com/cancel.html">
+        <input type="hidden" name="notify_url" value="https://yourwebsite.com/payfast_notify.php">
+
+        <!-- PayFast button -->
+        <button type="submit">Pay Now with PayFast</button>
+    </form>
+
+    <script>
+        // Assuming the total amount and cart item names are passed from the previous page
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Calculate the total amount
+        let totalAmount = 0;
+        cart.forEach(item => {
+            totalAmount += parseFloat(item.price.replace('R', '').trim());
+        });
+
+        // Populate the PayFast form
+        document.getElementById('amount').value = totalAmount.toFixed(2); // Use fixed-point notation for cents.
+    </script>
+</body>
+
+</html>
